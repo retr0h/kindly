@@ -1,0 +1,16 @@
+---
+apiVersion: core/v1alpha1
+kind: KindlyDeployment
+metadata:
+  name: foo
+spec:
+  template:
+    spec:
+      image:
+        repository: test/kindly
+        pullPolicy: IfNotPresent
+        tag: latest
+      packager:
+        name: foo
+        chart: test/resources/charts/foo
+        namespace: foo

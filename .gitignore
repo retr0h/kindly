@@ -1,0 +1,12 @@
+*.egg-info/
+*.py[rcod]
+.cache/
+.coverage
+.eggs/
+.tox/
+.venv/
+build/
+coverage.*
+dist/
+htmlcov/
+pip-wheel-metadata/
