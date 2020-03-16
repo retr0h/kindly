@@ -45,6 +45,9 @@ click_completion.init()
 def main(ctx, debug, kindly_file):  # pragma: no cover
     '''
     \b
+    | o._  _|||_|
+    |<|| |(_|| _|
+
     kindly - Kind lifecycle manager.
 
     '''  # noqa: H404,H405
