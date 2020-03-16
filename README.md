@@ -1,6 +1,7 @@
 [![Actions Status](https://github.com/retr0h/kindly/workflows/Tests/badge.svg)](https://github.com/retr0h/kindly/actions)
 [![Black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat)](https://github.com/psf/black)
 [![PyTest](https://img.shields.io/badge/test%20suite-pytest-009bdb.svg?style=flat)](https://docs.pytest.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat)](https://opensource.org/licenses/MIT)
 
 # kindly
 
