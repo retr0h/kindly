@@ -68,3 +68,9 @@ def test_packager_namespace(_instance):
     x = 'foo'
 
     assert x == _instance.packager_namespace
+
+
+def test_configs_path(_instance):
+    x = 'test/resources/configs/'
+
+    assert x == _instance.configs_path

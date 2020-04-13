@@ -64,3 +64,38 @@ class Kubectl(object):
             debug=self._config.debug,
             env=self._config.env,
         )
+
+    def create_objects(self):
+        '''Create objects defined in the path on Kind cluster. '''
+
+        commands = [
+            'kubectl',
+            'create',
+            '--save-config',
+            '-f',
+            self._deployment_spec.configs_path,
+        ]
+
+        util.run(
+            commands,
+            stream=False,
+            debug=self._config.debug,
+            env=self._config.env,
+        )
+
+    def update_objects(self):
+        '''Apply changes to objects defined in the path on Kind cluster. '''
+
+        commands = [
+            'kubectl',
+            'apply',
+            '-f',
+            self._deployment_spec.configs_path,
+        ]
+
+        util.run(
+            commands,
+            stream=False,
+            debug=self._config.debug,
+            env=self._config.env,
+        )

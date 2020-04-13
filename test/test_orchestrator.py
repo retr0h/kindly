@@ -62,3 +62,32 @@ def test_create_namespace(_instance, patched_run):
 
 def test_create_namespace_with_debug(_instance, patched_run):
     pass
+
+
+def test_create_objects(_instance, patched_run):
+    _instance.create_objects()
+
+    commands = [
+        'kubectl',
+        'create',
+        '--save-config',
+        '-f',
+        'test/resources/configs/',
+    ]
+    patched_run.assert_called_once_with(
+        commands, stream=False, debug=False, env=_instance._config.env
+    )
+
+
+def test_update_objects(_instance, patched_run):
+    _instance.update_objects()
+
+    commands = [
+        'kubectl',
+        'apply',
+        '-f',
+        'test/resources/configs/',
+    ]
+    patched_run.assert_called_once_with(
+        commands, stream=False, debug=False, env=_instance._config.env
+    )

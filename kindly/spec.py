@@ -29,15 +29,18 @@ class DeploymentSpec(object):
 
     def __init__(self, kindly_file):
         self._data = self._get_config(kindly_file)
-        self._validate = self._validate(kindly_file)
-
         self._template_spec = self._data['spec']['template']['spec']
+        self._validate = self._validate(kindly_file)
 
     @property
     def cluster_name(self):
         name = self._data['metadata']['name']
 
         return f'{DEFAULT_CLUSTER_PREFIX}-{name}'
+
+    @property
+    def configs_path(self):
+        return self._template_spec['configs']['configPath']
 
     @property
     def image(self):
@@ -66,6 +69,9 @@ class DeploymentSpec(object):
     def packager_namespace(self):
         return self._template_spec['packager']['namespace']
 
+    def template_spec_contains(self, attrib):
+        return attrib in self._template_spec
+
     def _get_config(self, kindly_file):
         return util.safe_load_file(kindly_file)
 
@@ -73,3 +79,20 @@ class DeploymentSpec(object):
         # TODO(jodewey): Move validation into a better library.
         assert 'core/v1alpha1' == self._data['apiVersion']
         assert 'KindlyDeployment' == self._data['kind']
+
+        # Template spec validation
+        __req_attributes = {
+            'packager': {'name', 'chart', 'namespace'},
+            'image': {'repository', 'pullPolicy', 'tag'},
+            'configs': {'configPath'},
+        }
+        for attrib in self._template_spec:
+            if (
+                not set(self._template_spec[attrib])
+                == __req_attributes[attrib]
+            ):
+                msg = (
+                    f"kindly_file validation failed for template:spec:{attrib}"
+                    f" required attribs missing {__req_attributes[attrib]}"
+                )
+                util.abort_with_message(msg)

@@ -7,10 +7,12 @@ spec:
   template:
     spec:
       image:
-        repository: test/kindly
-        pullPolicy: IfNotPresent
-        tag: latest
+         repository: test/kindly
+         pullPolicy: IfNotPresent
+         tag: latest
       packager:
         name: foo
         chart: test/resources/charts/foo
         namespace: foo
+      configs:
+        configPath: test/resources/configs/

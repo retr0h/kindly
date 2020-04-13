@@ -36,24 +36,37 @@ def create(ctx):
         d.create()
         spinner.succeed()
 
-    with halo.Halo(
-        text=f"Loading image '{s.image}'", spinner='dots', enabled=c.spinner
-    ) as spinner:
-        d.load_image()
-        spinner.succeed()
+    if s.template_spec_contains('image'):
+        with halo.Halo(
+            text=f"Loading image '{s.image}'",
+            spinner='dots',
+            enabled=c.spinner,
+        ) as spinner:
+            d.load_image()
+            spinner.succeed()
 
-    with halo.Halo(
-        text=f"Create package namespace '{s.packager_namespace}'",
-        spinner='dots',
-        enabled=c.spinner,
-    ) as spinner:
-        o.create_namespace()
-        spinner.succeed()
+    if s.template_spec_contains('packager'):
+        with halo.Halo(
+            text=f"Create package namespace '{s.packager_namespace}'",
+            spinner='dots',
+            enabled=c.spinner,
+        ) as spinner:
+            o.create_namespace()
+            spinner.succeed()
 
-    with halo.Halo(
-        text=f"Install package '{s.packager_chart}'",
-        spinner='dots',
-        enabled=c.spinner,
-    ) as spinner:
-        p.install()
-        spinner.succeed()
+        with halo.Halo(
+            text=f"Install package '{s.packager_chart}'",
+            spinner='dots',
+            enabled=c.spinner,
+        ) as spinner:
+            p.install()
+            spinner.succeed()
+
+    if s.template_spec_contains('configs'):
+        with halo.Halo(
+            text=f"Create objects from yaml definitions in '{s.configs_path}'",
+            spinner='dots',
+            enabled=c.spinner,
+        ) as spinner:
+            o.create_objects()
+            spinner.succeed()
